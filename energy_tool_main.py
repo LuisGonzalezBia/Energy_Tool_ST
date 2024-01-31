@@ -13,7 +13,7 @@ import openpyxl
 
 st.title('Energy Tool')
 
-add_sidebar = st.sidebar.selectbox('Escoge el modelo:', ('Demand Planing (Aeropuerto)', 'Spot Price Forecaste', 'Demand Forecast'))
+add_sidebar = st.sidebar.selectbox('Escoge el modelo:', ('Demand Planing (Aeropuerto)', 'Spot Price Forecaste', 'Demand Forecast', 'Energy Team'))
 if add_sidebar == 'Demand Planing (Aeropuerto)':
     #archivo = 'data\Aeropuerto\Cronograma de Activaciones 2024-01-26.xlsx'
     archivo = 'Cronograma_Activaciones_2024-01-31.xlsx' # Cambiamos la ruta porqu no pude crear una carpeta en git hub
@@ -282,8 +282,16 @@ elif add_sidebar == 'Spot Price Forecaste':
 
 
 #------------------------------------------------------------------------------------------------------------------------------Spot Price Digital Twin
-elif add_sidebar == 'Spot Price Forecaste':
+elif add_sidebar == 'Demand Forecast':
     st.title('Demand Forecast')
     st.text('En este módulo encontrarás la proyección de demanda.')
     st.text('Actualmente en desarrollo.')
-    'Demand Planing (Aeropuerto)', 'Spot Proce Digital Twin', 'Demand Forecast'
+
+
+#------------------------------------------------------------------------------------------------------------------------------Spot Price Digital Twin
+elif add_sidebar == 'Energy Team':
+    st.title('Energy Team')
+    st.text('VP of Energy: Guillermo Cajamarca')
+    st.text('Head of Energy Trading: Nohora Mesa')
+    st.text('Energy Trading Analyst: Juliana Bonilla')
+    st.text('Energy Data Analyst: Luis González')
