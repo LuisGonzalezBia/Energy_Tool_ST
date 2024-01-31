@@ -164,6 +164,68 @@ if add_sidebar == 'Demand Planing (Aeropuerto)':
                         range=[fecha_inicio, fecha_fin])
     fig2.update_traces(textangle=0)
 
+
+
+#--------------------------------------------------------------------------------------------------------------Creación del gráfico Global
+    fig3 = make_subplots(rows=1, cols=1)
+
+    # Demanda Activable
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['Demanda activable MR'] + df_aeropuerto['Demanda activable MNR'], name = 'Demanda activable', 
+            text = round(df_aeropuerto['Demanda activable MR'] + df_aeropuerto['Demanda activable MNR'],1), textposition='outside', 
+            textfont=dict(size=45, color="#ab63fa"), insidetextanchor = "middle", offsetgroup=0, marker_color="#ab63fa"),
+        secondary_y=False, row=1, col=1)
+        
+    # Demanda facturada real y futura
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['Demanda facturada MR'] + df_aeropuerto['Demanda facturada MNR'], name = 'Demanda facturada', 
+            text = round(df_aeropuerto['Demanda facturada MR'] + df_aeropuerto['Demanda facturada MNR'],1), textposition='inside', insidetextanchor = "middle",
+            textfont=dict(size=40, color="white"), marker_color="#0068c9", offsetgroup=0),
+        secondary_y=False, row=1, col=1)
+    # Demanda por activar
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['demanda total por activar MR'] + df_aeropuerto['demanda total por activar MNR'], name = 'Demanda facturada x activaciones', 
+            text = round(df_aeropuerto['demanda total por activar MR'] + df_aeropuerto['demanda total por activar MNR'],1), textposition='inside', insidetextanchor = "middle", marker_color="#ad4065",
+            textfont=dict(size=30, color="white"), offsetgroup=0, base=df_aeropuerto['Demanda facturada MR'] + df_aeropuerto['Demanda facturada MNR']),
+        secondary_y=False, row=1, col=1)
+    # Ventas Derivex
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['Ventas Derivex MR'] + df_aeropuerto['Ventas Derivex MNR'], name = 'Ventas Derivex', 
+            text = round(df_aeropuerto['Ventas Derivex MR'] + df_aeropuerto['Ventas Derivex MNR'],1), textposition='inside', insidetextanchor = "middle", marker_color="#34a853",
+            textfont=dict(size=35, color="white"), offsetgroup=0, base=df_aeropuerto['Demanda facturada MR'] + df_aeropuerto['demanda total por activar MR'] + df_aeropuerto['Demanda facturada MNR'] + df_aeropuerto['demanda total por activar MNR']),
+        secondary_y=False, row=1, col=1)
+    # Energía por vender MR
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = -df_aeropuerto['Energía Disponible MR']-df_aeropuerto['Energía Disponible MNR'], name = 'Energía por vender', 
+            text = round(df_aeropuerto['Energía Disponible MR'] + df_aeropuerto['Energía Disponible MNR'],1), textposition='inside', insidetextanchor = "middle", marker_color="#ff6d01",
+            textangle=0, textfont=dict(size=35, color="black"), offsetgroup=0, base=df_aeropuerto['Demanda activable MR'] + df_aeropuerto['Demanda activable MNR']),
+        secondary_y=False, row=1, col=1)
+    # Déficit de energía
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['Deficit MR'] + df_aeropuerto['Deficit MNR'], name = 'Deficit', 
+            text = round(df_aeropuerto['Deficit MR'] + df_aeropuerto['Deficit MNR'],1), textposition='inside', insidetextanchor = "middle", marker_color="#ff0000",
+            textfont=dict(size=35, color="white"), offsetgroup=0, base=df_aeropuerto['Demanda activable MR'] + df_aeropuerto['Demanda activable MNR']),
+        secondary_y=False, row=1, col=1)
+    # Activaciones por agendar
+    fig3.add_trace(
+        go.Bar(x = df_aeropuerto.index, y = df_aeropuerto['Activaciones en revisión MR'] + df_aeropuerto['Activaciones en revisión MNR'], name = 'Activaciones en revisión', 
+            text = round(df_aeropuerto['Activaciones en revisión MR'] + df_aeropuerto['Activaciones en revisión MNR'],1), textposition='inside', insidetextanchor = "middle", marker_color="Yellow",
+            textangle=0, textfont=dict(size=35, color="black"), offsetgroup=0, base=df_aeropuerto['Demanda facturada MR'] + df_aeropuerto['demanda total por activar MR'] + df_aeropuerto['Demanda facturada MNR'] + df_aeropuerto['demanda total por activar MNR']),
+        secondary_y=False, row=1, col=1)
+        
+        
+    # Configuración del gráfico
+    fig3.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font_color='#b6b9d3'))
+    fig3.update_yaxes(title_text = '[GWh/mes]', secondary_y=False, showline=False, showgrid=True, gridwidth=1, 
+                        gridcolor='#b6b9d3', color='#b6b9d3', )
+    fig3.update_layout(paper_bgcolor='#0b0c1e', plot_bgcolor='#0b0c1e', autosize=False, 
+                        width=950, height=500, margin=dict( l=30, r=30, b=30, t=30, pad=4), 
+                        yaxis_range=[0,df_aeropuerto['Demanda activable MR'] + df_aeropuerto['Demanda activable MNR'].iloc[-1]+3],
+                        xaxis_range=[fecha_inicio, fecha_fin])
+    fig3.update_xaxes(title_text= '', showgrid=True, gridwidth=1, gridcolor='#0b0c1e', color='#b6b9d3',
+                        range=[fecha_inicio, fecha_fin])
+    fig3.update_traces(textangle=0)
+
     #--------------------------------------------------------------------------------------------------------------Desagregación leads de activaciones en revisión MR
     # Utilizamos el mismo archivo cargado anteriormente archivo ".xlsx" con la información en la pestaña llamada "Cronograma"
     #df_leads = pd.read_excel('Cronograma de Activaciones 2024-01-26.xlsx', sheet_name='Cronograma') # Lo pasamos a formato dataframe
@@ -177,13 +239,13 @@ if add_sidebar == 'Demand Planing (Aeropuerto)':
     numero_leads_revision_sales_MNR = len(listado_leads_revision_sales_MNR)
 
 
-    aeropuerto_select_box = st.selectbox('Escoge el mercado:', ('Mercado Regulado', 'Mercado No Regulado', 'Total'))
+    aeropuerto_select_box = st.selectbox('Escoge el mercado:', ('Mercado Regulado', 'Mercado No Regulado', 'Global'))
 
     # Visualizaciones
     if aeropuerto_select_box == 'Mercado Regulado':    
         # Gráfico MR
         st.header('Gráfico de Aeropuerto Mercado Regulado') # Tercer encabezado
-        st.plotly_chart(fig1, use_container_width=False) # Plot del gráfico
+        st.plotly_chart(fig1, use_container_width=True) # Plot del gráfico
 
         # Leads en revisión MR
         st.header('Leads en revisión MR: ' + str(numero_leads_revision_sales_MR)) # Segundo encabezado
@@ -193,12 +255,23 @@ if add_sidebar == 'Demand Planing (Aeropuerto)':
     elif aeropuerto_select_box == 'Mercado No Regulado':
         # Gráfico MNR
         st.header('Gráfico de Aeropuerto Mercado No Regulado') # Cuarto encabezado
-        st.plotly_chart(fig2, use_container_width=False) # Plot del gráfico
+        st.plotly_chart(fig2, use_container_width=True) # Plot del gráfico
 
         # Leads en revisión MNR
         st.header('Leads en revisión MNR: ' + str(numero_leads_revision_sales_MNR)) # Segundo encabezado
         st.write('Estado: ' + estado + ')')
         st.write(listado_leads_revision_sales_MNR)
+
+    elif aeropuerto_select_box == 'Global':
+        # Gráfico MNR
+        st.header('Gráfico de Aeropuerto MR y MNR') # Cuarto encabezado
+        st.plotly_chart(fig3, use_container_width=True) # Plot del gráfico
+
+        # Leads en revisión MNR
+        st.header('Leads en revisión MR y MNR: ' + str(numero_leads_revision_sales_MR + numero_leads_revision_sales_MNR)) # Segundo encabezado
+        st.write('Estado: ' + estado + ')')
+        try: st.write(listado_leads_revision_sales_MR + listado_leads_revision_sales_MNR)
+        except: st.write(listado_leads_revision_sales_MR)
 
 
 #------------------------------------------------------------------------------------------------------------------------------Spot Price Digital Twin
