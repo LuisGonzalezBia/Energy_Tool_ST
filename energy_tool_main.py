@@ -14,7 +14,8 @@ st.title('Energy Tool')
 
 add_sidebar = st.sidebar.selectbox('Escoge el modelo:', ('Demand Planing (Aeropuerto)', 'Spot Price Forecaste', 'Demand Forecast'))
 if add_sidebar == 'Demand Planing (Aeropuerto)':
-    archivo = 'data\Aeropuerto\Cronograma de Activaciones 2024-01-26.xlsx'
+    #archivo = 'data\Aeropuerto\Cronograma de Activaciones 2024-01-26.xlsx'
+    archivo = 'Cronograma de Activaciones 2024-01-26.xlsx' # Cambiamos la ruta porqu no pude crear una carpeta en git hub
     #  Cargar archivo ".xlsx" con la información en la pestaña llamada "Aeropuerto"
     def load_aeropuerto():
         df_aeropuerto = pd.read_excel(archivo, sheet_name='Aeropuerto') # Lo pasamos a formato dataframe
