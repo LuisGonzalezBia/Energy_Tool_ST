@@ -9,6 +9,7 @@ import datetime as dt
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import openpyxl 
 
 st.title('Energy Tool')
 
