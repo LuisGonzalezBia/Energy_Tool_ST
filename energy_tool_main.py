@@ -9,7 +9,7 @@ import datetime as dt
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-#import openpyxl 
+import openpyxl 
 
 st.title('Energy Tool')
 
@@ -17,6 +17,7 @@ add_sidebar = st.sidebar.selectbox('Escoge el modelo:', ('Demand Planing (Aeropu
 if add_sidebar == 'Demand Planing (Aeropuerto)':
     #archivo = 'data\Aeropuerto\Cronograma de Activaciones 2024-01-26.xlsx'
     archivo = 'Cronograma de Activaciones 2024-01-26.xlsx' # Cambiamos la ruta porqu no pude crear una carpeta en git hub
+    #archivo = 's3://bia-bucket-public/Energy/Cronograma de Activaciones 2024-01-26.xlsx' #pruebak de conexión a S3
     #  Cargar archivo ".xlsx" con la información en la pestaña llamada "Aeropuerto"
     def load_aeropuerto():
         df_aeropuerto = pd.read_excel(archivo, sheet_name='Aeropuerto') # Lo pasamos a formato dataframe
